@@ -8,4 +8,4 @@
 [spcn04fastapi.xops.ipv9.me](https://spcn04fastapi.xops.ipv9.me/)
 
 # WAKATIME
-[wakatime.com/@spcn04/projects/djmozndcbd](https://wakatime.com/@spcn04/projects/djmozndcbd)
+[WAKATIME](https://wakatime.com/@spcn04/projects/sfryxbanlt)
