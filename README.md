@@ -25,3 +25,14 @@ echo -n > /etc/machine-id
 cat /etc/machine-id
 ln -s /etc/machine-id /var/lib/dbus/machine-id
 ```
+
+# INSTALL-DOCKER
+- คำสั่งที่ใช้ลง Docker
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+- คำสั่งตรวจสอบการใช้งาน Docker
+```
+sudo docker run hello-world
+```
+
