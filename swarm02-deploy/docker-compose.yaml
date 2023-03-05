@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  api:
+    image: alexanderssonn/swarm02-api:0304
+    networks:
+     - webproxy
+    ports:
+     - "8808:8000"
+    environment:
+     PORT: 8000
+    logging:
+      driver: json-file
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - app:/app
+    deploy:
+      replicas: 1
+
+volumes:
+  app:          
+networks:
+  webproxy:
+    external: true

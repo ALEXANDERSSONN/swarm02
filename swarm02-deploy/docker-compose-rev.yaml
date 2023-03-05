@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  api:
+    image: alexanderssonn/swarm02-api:0304
+    networks:
+     - webproxy
+    environment:
+     PORT: 8000
+    logging:
+      driver: json-file
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - app:/app
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.docker.network=webproxy
+        - traefik.enable=true
+        - traefik.http.routers.${APPNAME}-https.entrypoints=websecure
+        - traefik.http.routers.${APPNAME}-https.rule=Host("${APPNAME}.xops.ipv9.me")
+        - traefik.http.routers.${APPNAME}-https.tls.certresolver=default
+        - traefik.http.services.${APPNAME}.loadbalancer.server.port=8000
+
+volumes:
+  app:          
+networks:
+  webproxy:
+    external: true
