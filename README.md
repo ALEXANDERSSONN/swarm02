@@ -44,3 +44,74 @@ sudo docker compose "fastapi/compose.yaml" up -d --build
 ```
 docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 ```
+# PUSH IMAGE TO DOCKER HUB 
+- คำสั่งเข้าสู่ระบบ Docker ใน VSCODE
+```
+docker login
+```
+- คำสั่ง Push Image To Docker Hub
+```
+docker push TARGET_IMAGE[:TAG]
+```
+
+# CREATE STACK DEPLOY
+- สร้างไฟล์ compose.yaml
+```
+version: '3.7'
+services:
+  api:
+    image: alexanderssonn/swarm02-api:0304
+    networks:
+     - webproxy
+    ports:
+     - "8808:8000"
+    environment:
+     PORT: 8000
+    logging:
+      driver: json-file
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - app:/app
+    deploy:
+      replicas: 1
+
+volumes:
+  app:          
+networks:
+  webproxy:
+    external: true
+```
+- นำ compose.yaml ไป Stack Deploy on local
+
+# SWARM CLUSTER
+- Revert Proxy compose.yaml
+```
+version: '3.7'
+services:
+  api:
+    image: TARGET_IMAGE[:TAG]
+    networks:
+     - webproxy
+    environment:
+     PORT: 8000
+    logging:
+      driver: json-file
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - app:/app
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.docker.network=webproxy
+        - traefik.enable=true
+        - traefik.http.routers.${APPNAME}-https.entrypoints=websecure
+        - traefik.http.routers.${APPNAME}-https.rule=Host("${APPNAME} URL ")
+        - traefik.http.routers.${APPNAME}-https.tls.certresolver=default
+        - traefik.http.services.${APPNAME}.loadbalancer.server.port=8000
+
+volumes:
+  app:          
+networks:
+  webproxy:
+    external: true
+```
