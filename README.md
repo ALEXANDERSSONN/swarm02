@@ -38,7 +38,7 @@ sudo docker run hello-world
 # BUILD-IMAGE & TAG
 - คำสั่งการ Build image
 ```
-sudo docker compose "django/compose.yaml" up -d --build
+sudo docker compose "fastapi/compose.yaml" up -d --build
 ```
 - คำสั่งการ Tag
 ```
