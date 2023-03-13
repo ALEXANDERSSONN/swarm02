@@ -35,6 +35,9 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ```
 sudo docker run hello-world
 ```
+- หากใช้งานได้ตามปกติ ผลลัพธ์จะขึ้นดังรูปนี้
+
+![image](https://user-images.githubusercontent.com/115150753/224604678-c6126e4c-a2e4-4eef-9229-f46b1c733d47.png)
 # BUILD-IMAGE & TAG
 - คำสั่งการ Build image
 ```
@@ -44,6 +47,11 @@ sudo docker compose "fastapi/compose.yaml" up -d --build
 ```
 docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 ```
+
+- ผลลัพธ์การ TAG สำเร็จ
+
+![image](https://user-images.githubusercontent.com/115150753/224604932-e4b3384d-12c7-414f-ab81-194216e3dbf5.png)
+
 # PUSH IMAGE TO DOCKER HUB 
 - คำสั่งเข้าสู่ระบบ Docker ใน VSCODE
 ```
@@ -53,6 +61,7 @@ docker login
 ```
 docker push TARGET_IMAGE[:TAG]
 ```
+
 
 # CREATE STACK DEPLOY
 - สร้างไฟล์ compose.yaml
@@ -115,5 +124,19 @@ networks:
   webproxy:
     external: true
 ```
+
+- เข้าไปที่ Portainer กดที่ Stack
+- ADD Stack
+
+![image](https://user-images.githubusercontent.com/115150753/224602833-fa1c022d-9c46-441f-b47b-de656e29446e.png)
+
+- COPY ข้อมูลใน Revert Proxy compose.yaml มาทั้งหมดแล้วนำไปใส่ที่ Web Editor
+
+![image](https://user-images.githubusercontent.com/115150753/224603071-8f8f2159-ea41-43e8-9acd-67967724d543.png)
+
+- เพิ่ม ENVIRONMENT VARIABLE ของ APPNAME ตามชื่อต้องการ
+
+![image](https://user-images.githubusercontent.com/115150753/224603357-2cf8f55c-37c1-4650-84cc-20724bc8398b.png)
+
 
 ![chrome_pBhYL4EpB5](https://user-images.githubusercontent.com/115150753/223736430-23798aae-7ec1-4be0-a68b-4c865c4f763a.png)
